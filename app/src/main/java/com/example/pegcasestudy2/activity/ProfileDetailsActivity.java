@@ -15,8 +15,6 @@ import com.example.pegcasestudy2.profile.dao.Profile;
  */
 public class ProfileDetailsActivity extends AppCompatActivity {
 
-  private final ImageResourceProvider imageResourceProvider = new ImageResourceProvider();
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -37,8 +35,10 @@ public class ProfileDetailsActivity extends AppCompatActivity {
   }
 
   private void initImageView(Gender gender) {
-    ((ImageView) findViewById(R.id.detailProfileImage))
-        .setImageResource(imageResourceProvider.provide(gender));
+    ImageView imageView = findViewById(R.id.detailProfileImage);
+    int imageResource = ImageResourceProvider.provide(gender);
+    imageView.setImageResource(imageResource);
+    imageView.setTag(imageResource);
   }
 
   private void initTextView(int id, String text) {

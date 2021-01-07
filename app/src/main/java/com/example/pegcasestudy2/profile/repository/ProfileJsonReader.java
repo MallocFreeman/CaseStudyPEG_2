@@ -8,6 +8,9 @@ import com.google.gson.stream.JsonReader;
 import java.io.InputStreamReader;
 import java.util.Optional;
 
+/**
+ * Utility class to wrap the usage of {@link Gson}
+ */
 class ProfileJsonReader {
 
   /**

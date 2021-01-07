@@ -3,7 +3,11 @@ package com.example.pegcasestudy2.activity.parcel;
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.example.pegcasestudy2.profile.dao.Location;
+import com.example.pegcasestudy2.profile.dao.Profile;
 
+/**
+ * Wrapper to provide a {@link Parcelable} that contains a {@link Location}
+ */
 public class LocationParcel implements Parcelable {
 
   private Location location;

@@ -30,7 +30,7 @@ public class ProfileOverviewActivity extends AppCompatActivity implements OnProf
   }
 
   @Override
-  public void onProfileCLick(int id) {
+  public void onProfileClick(int id) {
     switchToProfileDetails(id);
   }
 

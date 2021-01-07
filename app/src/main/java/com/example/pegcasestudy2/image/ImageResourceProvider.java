@@ -3,6 +3,9 @@ package com.example.pegcasestudy2.image;
 import com.example.pegcasestudy2.R;
 import com.example.pegcasestudy2.profile.dao.Gender;
 
+/**
+ * Static helper class to provide a resource id for an image depending on the {@link Gender}
+ */
 public class ImageResourceProvider {
 
   /**

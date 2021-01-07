@@ -10,6 +10,10 @@ import com.example.pegcasestudy2.image.ImageResourceProvider;
 import com.example.pegcasestudy2.profile.dao.Profile;
 import java.util.List;
 
+/**
+ * Adapter class that takes care of providing the data for a {@link RecyclerView} with {@link
+ * Profile} objects.
+ */
 public class ProfileItemAdapter extends RecyclerView.Adapter<ProfileViewHolder> {
 
   private final OnProfileListener onProfileListener;

@@ -28,7 +28,7 @@ public class ProfileViewHolder extends RecyclerView.ViewHolder implements OnClic
 
   @Override
   public void onClick(View v) {
-    onProfileListener.onProfileCLick(getAdapterPosition());
+    onProfileListener.onProfileClick(getAdapterPosition());
   }
 
   void setImageResource(final int id) {
