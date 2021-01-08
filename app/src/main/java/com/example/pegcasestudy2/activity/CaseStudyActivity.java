@@ -1,11 +1,13 @@
 package com.example.pegcasestudy2.activity;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager2.widget.ViewPager2;
 import com.example.pegcasestudy2.R;
+import com.example.pegcasestudy2.activity.parcel.ProfileListParcel;
+import com.example.pegcasestudy2.activity.parcel.ProfileParcel;
 import com.example.pegcasestudy2.fragment.FragmentProfileDetails;
 import com.example.pegcasestudy2.fragment.FragmentProfileOverview;
 import com.example.pegcasestudy2.profile.OnProfileListener;
@@ -18,6 +20,7 @@ import java.util.List;
  * com.example.pegcasestudy2.profile.repository.ProfileRepository} the content shwon may vary.
  */
 public class CaseStudyActivity extends AppCompatActivity implements OnProfileListener {
+
   private List<Profile> profiles;
 
   @Override
@@ -33,16 +36,22 @@ public class CaseStudyActivity extends AppCompatActivity implements OnProfileLis
     switchToProfileDetails(id);
   }
 
+  private void initProfileInformation() {
+    profiles = new ProfileJsonRepository(getResources(), R.raw.profiles).getProfiles();
+  }
+
   private void switchToProfileOverview() {
-    switchFragment(new FragmentProfileOverview(this, profiles));
+    FragmentProfileOverview fragmentProfileOverview = new FragmentProfileOverview(this);
+    fragmentProfileOverview.setArguments(
+        createBundle(ProfileListParcel.PARCELABLE_LIST_NAME, new ProfileListParcel(profiles)));
+    switchFragment(fragmentProfileOverview);
   }
 
   private void switchToProfileDetails(final int id) {
-    switchFragment(new FragmentProfileDetails(profiles.get(id)));
-  }
-
-  private void initProfileInformation() {
-    profiles = new ProfileJsonRepository(getResources(), R.raw.profiles).getProfiles();
+    FragmentProfileDetails fragmentProfileDetails = new FragmentProfileDetails();
+    fragmentProfileDetails.setArguments(
+        createBundle(ProfileParcel.PARCELABLE_NAME, new ProfileParcel(profiles.get(id))));
+    switchFragment(fragmentProfileDetails);
   }
 
   private void switchFragment(Fragment fragment) {
@@ -50,5 +59,11 @@ public class CaseStudyActivity extends AppCompatActivity implements OnProfileLis
     fragmentTransaction.replace(R.id.frame, fragment);
     fragmentTransaction.addToBackStack(null);
     fragmentTransaction.commit();
+  }
+
+  private Bundle createBundle(String key, Parcelable parcelable) {
+    Bundle bundle = new Bundle();
+    bundle.putParcelable(key, parcelable);
+    return bundle;
   }
 }
