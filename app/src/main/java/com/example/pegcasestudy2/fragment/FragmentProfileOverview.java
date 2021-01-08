@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pegcasestudy2.R;
 import com.example.pegcasestudy2.parcel.ProfileListParcel;
 import com.example.pegcasestudy2.profile.OnProfileListener;
-import com.example.pegcasestudy2.profile.ProfileItemAdapter;
+import com.example.pegcasestudy2.profile.ProfileOverviewAdapter;
 import com.example.pegcasestudy2.profile.dao.Profile;
 import java.util.Collections;
 import java.util.List;
@@ -51,6 +51,6 @@ public class FragmentProfileOverview extends Fragment {
     RecyclerView recyclerView = view.findViewById(R.id.profiles);
     recyclerView.setHasFixedSize(true);
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-    recyclerView.setAdapter(new ProfileItemAdapter(onProfileListener, readFromBundle()));
+    recyclerView.setAdapter(new ProfileOverviewAdapter(onProfileListener, readFromBundle()));
   }
 }

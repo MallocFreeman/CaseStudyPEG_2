@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pegcasestudy2.R
 
-class ProfileViewHolder(itemView: View, onProfileListener: OnProfileListener) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+class ProfileOverviewItemViewHolder(itemView: View, onProfileListener: OnProfileListener) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
     private val profileImage: ImageView = itemView.findViewById(R.id.profilePicture)
     private val nameAndAge: TextView = itemView.findViewById(R.id.profileNameAndAge)
     private val location: TextView = itemView.findViewById(R.id.profileLocation)

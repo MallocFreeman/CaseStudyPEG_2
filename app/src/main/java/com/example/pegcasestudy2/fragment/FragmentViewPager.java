@@ -1,45 +1,53 @@
 package com.example.pegcasestudy2.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 import com.example.pegcasestudy2.R;
-import com.example.pegcasestudy2.image.ImageResourceProvider;
-import com.example.pegcasestudy2.profile.dao.Gender;
+import com.example.pegcasestudy2.parcel.ProfileListParcel;
+import com.example.pegcasestudy2.profile.ProfileSwipeAdapter;
 import com.example.pegcasestudy2.profile.dao.Profile;
+import java.util.Collections;
+import java.util.List;
 
 public class FragmentViewPager extends Fragment {
 
-  private final Profile profile;
+  public static final String CURRENT_POSITION = "currentPosition";
 
-  public FragmentViewPager(Profile profile) {
-    super(R.layout.activity_profile_details);
-    this.profile = profile;
-  }
-
+  @Nullable
   @Override
-  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
-    initViews(view, profile);
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+    View view = inflater.inflate(R.layout.activity_profile_swipeview, container, false);
+
+    initViewpager(view);
+    return view;
   }
 
-  private void initViews(View view, Profile profile) {
-    initImageView(view, profile.getGender());
-    initTextView(view, R.id.detailProfileNameAndAge, profile.toString());
-    initTextView(view, R.id.detailProfileLocation, profile.getLocation().toString());
-    initTextView(view, R.id.detailProfileDescription, profile.getDescription());
+  private void initViewpager(View view) {
+    ViewPager2 viewpager = view.findViewById(R.id.viewpager);
+    viewpager.setAdapter(new ProfileSwipeAdapter(readFromBundle()));
+    viewpager.setCurrentItem(readCurrentPosition(), false);
   }
 
-  private void initImageView(View view, Gender gender) {
-    ((ImageView) view.findViewById(R.id.detailProfileImage))
-        .setImageResource(ImageResourceProvider.provide(gender));
+  private List<Profile> readFromBundle() {
+    List<Profile> profiles = Collections.emptyList();
+
+    Bundle bundle = this.getArguments();
+    if (bundle != null) {
+      ProfileListParcel parcelable = bundle.getParcelable(ProfileListParcel.PARCELABLE_LIST_NAME);
+      profiles = parcelable.getProfileList();
+    }
+
+    return profiles;
   }
 
-  private void initTextView(View view, int id, String text) {
-    ((TextView) view.findViewById(id)).setText(text);
+  private int readCurrentPosition() {
+    return this.getArguments() != null ? this.getArguments().getInt(CURRENT_POSITION) : 0;
   }
 }

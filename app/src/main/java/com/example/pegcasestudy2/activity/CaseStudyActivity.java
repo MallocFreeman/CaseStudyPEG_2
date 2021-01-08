@@ -8,10 +8,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.pegcasestudy2.R;
-import com.example.pegcasestudy2.fragment.FragmentProfileDetails;
 import com.example.pegcasestudy2.fragment.FragmentProfileOverview;
+import com.example.pegcasestudy2.fragment.FragmentViewPager;
 import com.example.pegcasestudy2.parcel.ProfileListParcel;
-import com.example.pegcasestudy2.parcel.ProfileParcel;
 import com.example.pegcasestudy2.profile.OnProfileListener;
 
 public class CaseStudyActivity extends AppCompatActivity implements OnProfileListener,
@@ -29,32 +28,29 @@ public class CaseStudyActivity extends AppCompatActivity implements OnProfileLis
 
   @Override
   public void onProfileClick(int id) {
-    switchToProfileDetails(id);
+    switchToViewPager(id);
   }
 
   private void initViewModel() {
-    viewModel = new ViewModelProvider(this)
-        .get(CaseStudyViewModel.class);
+    viewModel = new ViewModelProvider(this).get(CaseStudyViewModel.class);
     viewModel.loadProfiles();
   }
 
   private void switchToProfileOverview() {
-    FragmentProfileOverview fragmentProfileOverview = new FragmentProfileOverview(this);
-    fragmentProfileOverview.setArguments(
+    switchFragment(new FragmentProfileOverview(this),
         createBundle(ProfileListParcel.PARCELABLE_LIST_NAME,
             new ProfileListParcel(viewModel.getProfiles())));
-    switchFragment(fragmentProfileOverview);
   }
 
-  private void switchToProfileDetails(final int id) {
-    FragmentProfileDetails fragmentProfileDetails = new FragmentProfileDetails();
-    fragmentProfileDetails.setArguments(
-        createBundle(ProfileParcel.PARCELABLE_NAME,
-            new ProfileParcel(viewModel.getProfiles().get(id))));
-    switchFragment(fragmentProfileDetails);
+  private void switchToViewPager(final int id) {
+    Bundle bundle = createBundle(ProfileListParcel.PARCELABLE_LIST_NAME,
+        new ProfileListParcel(viewModel.getProfiles()));
+    bundle.putInt(FragmentViewPager.CURRENT_POSITION, id);
+    switchFragment(new FragmentViewPager(), bundle);
   }
 
-  private void switchFragment(Fragment fragment) {
+  private void switchFragment(Fragment fragment, Bundle bundle) {
+    fragment.setArguments(bundle);
     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
     fragmentTransaction.replace(R.id.frame, fragment);
     fragmentTransaction.addToBackStack(null);
