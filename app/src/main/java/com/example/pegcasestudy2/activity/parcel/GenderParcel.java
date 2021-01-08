@@ -4,9 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.example.pegcasestudy2.profile.dao.Gender;
 
-/**
- * Wrapper to provide a {@link Parcelable} that contains a {@link Gender}
- */
 public class GenderParcel implements Parcelable {
 
   private Gender gender;
