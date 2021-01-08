@@ -11,7 +11,7 @@
     android:theme="@style/Theme.PEGCaseStudy2">
 
     <activity
-      android:label="@string/profileOverview"
+      android:label="@string/app_name"
       android:name=".activity.CaseStudyActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />

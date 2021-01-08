@@ -1,6 +1,4 @@
 <resources>
   <string name="app_name">PEGCaseStudy2</string>
   <string name="imageDescription">Profile picture of a user</string>
-  <string name="profileOverview">Profilübersicht</string>
-  <string name="profileDetails">Profil</string>
 </resources>

@@ -5,29 +5,25 @@ import android.os.Parcelable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
 import com.example.pegcasestudy2.R;
-import com.example.pegcasestudy2.activity.parcel.ProfileListParcel;
-import com.example.pegcasestudy2.activity.parcel.ProfileParcel;
 import com.example.pegcasestudy2.fragment.FragmentProfileDetails;
 import com.example.pegcasestudy2.fragment.FragmentProfileOverview;
+import com.example.pegcasestudy2.parcel.ProfileListParcel;
+import com.example.pegcasestudy2.parcel.ProfileParcel;
 import com.example.pegcasestudy2.profile.OnProfileListener;
-import com.example.pegcasestudy2.profile.dao.Profile;
-import com.example.pegcasestudy2.profile.repository.ProfileJsonRepository;
-import java.util.List;
 
-/**
- * Activity for the overview of all available {@link Profile} objects. Depending on the {@link
- * com.example.pegcasestudy2.profile.repository.ProfileRepository} the content shwon may vary.
- */
-public class CaseStudyActivity extends AppCompatActivity implements OnProfileListener {
+public class CaseStudyActivity extends AppCompatActivity implements OnProfileListener,
+    LifecycleOwner {
 
-  private List<Profile> profiles;
+  private CaseStudyViewModel viewModel;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.mainactivity);
-    initProfileInformation();
+    initViewModel();
     switchToProfileOverview();
   }
 
@@ -36,21 +32,25 @@ public class CaseStudyActivity extends AppCompatActivity implements OnProfileLis
     switchToProfileDetails(id);
   }
 
-  private void initProfileInformation() {
-    profiles = new ProfileJsonRepository(getResources(), R.raw.profiles).getProfiles();
+  private void initViewModel() {
+    viewModel = new ViewModelProvider(this)
+        .get(CaseStudyViewModel.class);
+    viewModel.loadProfiles();
   }
 
   private void switchToProfileOverview() {
     FragmentProfileOverview fragmentProfileOverview = new FragmentProfileOverview(this);
     fragmentProfileOverview.setArguments(
-        createBundle(ProfileListParcel.PARCELABLE_LIST_NAME, new ProfileListParcel(profiles)));
+        createBundle(ProfileListParcel.PARCELABLE_LIST_NAME,
+            new ProfileListParcel(viewModel.getProfiles())));
     switchFragment(fragmentProfileOverview);
   }
 
   private void switchToProfileDetails(final int id) {
     FragmentProfileDetails fragmentProfileDetails = new FragmentProfileDetails();
     fragmentProfileDetails.setArguments(
-        createBundle(ProfileParcel.PARCELABLE_NAME, new ProfileParcel(profiles.get(id))));
+        createBundle(ProfileParcel.PARCELABLE_NAME,
+            new ProfileParcel(viewModel.getProfiles().get(id))));
     switchFragment(fragmentProfileDetails);
   }
 

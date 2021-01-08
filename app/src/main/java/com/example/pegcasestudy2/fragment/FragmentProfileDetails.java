@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.pegcasestudy2.R;
-import com.example.pegcasestudy2.activity.parcel.ProfileParcel;
+import com.example.pegcasestudy2.parcel.ProfileParcel;
 import com.example.pegcasestudy2.image.ImageResourceProvider;
 import com.example.pegcasestudy2.profile.dao.Gender;
 import com.example.pegcasestudy2.profile.dao.Profile;

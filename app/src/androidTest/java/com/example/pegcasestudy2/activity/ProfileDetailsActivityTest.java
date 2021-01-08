@@ -13,7 +13,7 @@
 //import androidx.test.ext.junit.rules.ActivityScenarioRule;
 //import androidx.test.ext.junit.runners.AndroidJUnit4;
 //import com.example.pegcasestudy2.R;
-//import com.example.pegcasestudy2.activity.parcel.ProfileParcel;
+//import com.example.pegcasestudy2.parcel.ProfileParcel;
 //import com.example.pegcasestudy2.fragment.FragmentProfileOverview;
 //import com.example.pegcasestudy2.profile.dao.Gender;
 //import com.example.pegcasestudy2.profile.dao.Location;

@@ -1,4 +1,4 @@
-package com.example.pegcasestudy2.activity.parcel;
+package com.example.pegcasestudy2.parcel;
 
 import android.os.Parcel;
 import android.os.Parcelable;
